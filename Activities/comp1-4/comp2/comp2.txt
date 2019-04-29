@@ -1,0 +1,28 @@
+  comp2
+    
+  This program is a syntactic analyzer and code generator for the following grammar:
+    
+  Expr::=  '(' oper Expr  Expr ')' | number
+  oper ::= '+' | '-' 
+  number ::= '0'| '1' | ... | '9'
+       
+  The code is generated to C.
+
+A composite expression
+  ( + 1 2 )
+
+generates
+  ( 1 + 2 )
+
+
+
+Exercises
+
+Add to the compiler of language LE (see exercises of Compiler 1) statements to generate code in C.
+
+/* LE */
+E ::= TE'
+E' ::= + T E' | 
+T ::= F T'
+T' ::= * F T' | 
+F ::= Numero | (E)

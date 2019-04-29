@@ -1,0 +1,22 @@
+   comp4
+    
+    This program is a syntactic analyzer and evaluator for the following grammar:
+    
+       Expr::=  '(' oper Expr  Expr ')' | number
+       oper ::= '+' | '-' 
+       number ::= '0'| '1' | ... | '9'
+       
+    The evaluation of the expression is printed in the standard output
+
+
+
+Exercises
+
+Add to the compiler of language LE (see exercises of Compiler 1) statements to calculate the value of the expression.
+
+/* LE */
+E ::= TE'
+E' ::= + T E' | 
+T ::= F T'
+T' ::= * F T' | 
+F ::= Numero | (E)

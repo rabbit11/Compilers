@@ -1,0 +1,37 @@
+    comp3
+    
+    This program is a syntactic analyzer and code generator for the following grammar:
+    
+       Expr::=  '(' oper Expr  Expr ')' | number
+       oper ::= '+' | '-' 
+       number ::= '0'| '1' | ... | '9'
+       
+     The code is generated to ASM as described in Chapter 8 of the primer 
+     "Construção de Compiladores". The generated code is as bad as anyone can ever design but it is enough to show how assembler code is produced.
+
+
+Method expr may analyze code
+(+ 1 2)
+
+The generated code pushes 1, then pushes 2, adds both numbers, and pushes the result into the stack:
+
+mov R0, 1
+push R0
+mov R0, 2
+push R0
+pop R1
+pop R0
+add R0, R1
+push R0
+
+
+Exercises
+
+Add to the compiler of language LE (see exercises of Compiler 1) statements to generate code in assembly.
+
+/* LE */
+E ::= TE'
+E' ::= + T E' | 
+T ::= F T'
+T' ::= * F T' | 
+F ::= Numero | (E)
