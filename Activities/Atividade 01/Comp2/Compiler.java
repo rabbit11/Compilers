@@ -21,8 +21,81 @@ public class Compiler {
 			error();
 	}
 
-	
+	public void E(){
+		T();
+		El();
+	}
 
+	public void El(){
+		if(token == '+'){
+			nextToken();
+			T();
+			El();
+		}else{
+			T();
+		}
+	}
+
+	public void T(){
+		F();
+		Tl();
+	}
+
+	public void Tl() {
+		if(token == "*"){
+			nextToken();
+			F();
+			Tl();
+		}else{
+			F();
+		}
+	}
+
+	public void F() {
+		if(!(token.isNumber())){
+			nextToken();
+			E();
+		}else{
+			nextToken();
+		}
+	}
+
+	private void expr(){
+		if(token == '('){
+			char op;
+			nextToken();
+			op = oper;
+			expr();
+			
+			if(token == ')'){
+				nextToken();
+			}else{
+				error();
+			}
+		}else{
+			number();
+		}
+	}
+
+	private char oper(){
+		if(token == '+' || token == '-'){
+			char op token;
+			nextToken();
+			return op;
+		}else{
+			error();
+		}
+		return '\0';
+	}
+
+	private char number(){
+		if(token >= '0' && token <= '9'){
+			nextToken();
+		}else{
+			error();
+		}
+	}
+	
 	private void nextToken(){
 		while(tokenPos < input.length && input[tokenPos] == ' '){
 			tokenPos++;

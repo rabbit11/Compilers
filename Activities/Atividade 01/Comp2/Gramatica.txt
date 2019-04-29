@@ -1,0 +1,10 @@
+/*
+
+Gramática
+
+E = TE'
+E' = + T E' |
+T = F T'
+T' = * F T' |
+F = Numero | (E)
+*/

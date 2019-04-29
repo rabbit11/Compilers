@@ -53,7 +53,10 @@ public class Compiler {
 
 	public void F() {
 		if(!(token.isNumber())){
+			nextToken();
 			E();
+		}else{
+			nextToken();
 		}
 	}
 	
