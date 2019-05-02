@@ -28,11 +28,10 @@ public class Compiler {
 
 	public void El(){
 		if(token == '+'){
+			System.out.print(token);
 			nextToken();
 			T();
 			El();
-		}else{
-			T();
 		}
 	}
 
@@ -43,37 +42,31 @@ public class Compiler {
 
 	public void Tl() {
 		if(token == "*"){
+			System.out.print(token);
 			nextToken();
 			F();
 			Tl();
-		}else{
-			F();
 		}
 	}
 
 	public void F() {
-		if(!(token.isNumber())){
+		if(token >= '0' && token <= '9'){
+			System.out.print(token);
+			nextToken();
+		}else if(token == '('){
+			System.out.print(token);
 			nextToken();
 			E();
-		}else{
-			nextToken();
-		}
-	}
 
-	private void expr(){
-		if(token == '('){
-			char op;
-			nextToken();
-			op = oper;
-			expr();
-			
 			if(token == ')'){
+				System.out.print(token);
 				nextToken();
-			}else{
-				error();
 			}
-		}else{
-			number();
+			else
+				error();
+		}
+		else{
+			error();
 		}
 	}
 
@@ -88,14 +81,6 @@ public class Compiler {
 		return '\0';
 	}
 
-	private char number(){
-		if(token >= '0' && token <= '9'){
-			nextToken();
-		}else{
-			error();
-		}
-	}
-	
 	private void nextToken(){
 		while(tokenPos < input.length && input[tokenPos] == ' '){
 			tokenPos++;
@@ -109,7 +94,6 @@ public class Compiler {
 			tokenPos++;
 		}
 	}
-
 	private void error(){
 		if(tokenPos == 0)
 			tokenPos = 1;

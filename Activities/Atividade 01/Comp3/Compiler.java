@@ -21,7 +21,63 @@ public class Compiler {
 			error();
 	}
 
-	
+	public void E(){
+		T();
+		El();
+	}
+
+	public void El(){
+		if(token == '+'){
+			System.out.print(token);
+			nextToken();
+			T();
+			El();
+		}
+	}
+
+	public void T(){
+		F();
+		Tl();
+	}
+
+	public void Tl() {
+		if(token == "*"){
+			System.out.print(token);
+			nextToken();
+			F();
+			Tl();
+		}
+	}
+
+	public void F() {
+		if(token >= '0' && token <= '9'){
+			System.out.print(token);
+			nextToken();
+		}else if(token == '('){
+			nextToken();
+			E();
+
+			if(token == ')'){
+				nextToken();
+			}
+			else
+				error();
+		}
+		else{
+			error();
+		}
+	}
+
+	private char oper(){
+		if(token == '+' || token == '-'){
+			char op token;
+			nextToken();
+			return op;
+		}else{
+			error();
+		}
+		return '\0';
+	}
 
 	private void nextToken(){
 		while(tokenPos < input.length && input[tokenPos] == ' '){
@@ -36,7 +92,6 @@ public class Compiler {
 			tokenPos++;
 		}
 	}
-
 	private void error(){
 		if(tokenPos == 0)
 			tokenPos = 1;

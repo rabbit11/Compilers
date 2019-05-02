@@ -31,8 +31,6 @@ public class Compiler {
 			nextToken();
 			T();
 			El();
-		}else{
-			T();
 		}
 	}
 
@@ -46,20 +44,37 @@ public class Compiler {
 			nextToken();
 			F();
 			Tl();
-		}else{
-			F();
 		}
 	}
 
 	public void F() {
-		if(!(token.isNumber())){
+		if(token >= '0' && token <= '9'){
+			nextToken();
+		}else if(token == '('){
 			nextToken();
 			E();
-		}else{
-			nextToken();
+
+			if(token == ')')
+				nextToken();
+			else
+				error();
+		}
+		else{
+			error();
 		}
 	}
-	
+
+	private char oper(){
+		if(token == '+' || token == '-'){
+			char op token;
+			nextToken();
+			return op;
+		}else{
+			error();
+		}
+		return '\0';
+	}
+
 	private void nextToken(){
 		while(tokenPos < input.length && input[tokenPos] == ' '){
 			tokenPos++;
@@ -73,7 +88,6 @@ public class Compiler {
 			tokenPos++;
 		}
 	}
-
 	private void error(){
 		if(tokenPos == 0)
 			tokenPos = 1;
