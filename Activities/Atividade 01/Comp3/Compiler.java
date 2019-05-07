@@ -22,36 +22,64 @@ public class Compiler {
 	}
 
 	public void E(){
-		T();
-		El();
+		T();	
+		char op = El();
+
+		if(op != '\0'){
+			System.out.println("POP R1");
+			System.out.println("POP R0");
+			System.out.println("ADD R0, R1");
+		}
 	}
 
-	public void El(){
+	public char El(){
 		if(token == '+'){
+			char op;
+			op = token;
 			System.out.print(token);
 			nextToken();
 			T();
 			El();
+			return op;
 		}
+		return '\0';
 	}
 
 	public void T(){
-		F();
-		Tl();
+		int num = F();
+
+		if(num != -1){
+			System.out.println("mov R0, " + num);
+			System.out.println("push R0");
+		}
+		char op = Tl();
+		
+		if(op != '\0'){
+			System.out.println("POP R1");
+			System.out.println("POP R0");
+			System.out.println("MULTIPLY R0, R1");
+
+		}
 	}
 
-	public void Tl() {
+	public char Tl() {
 		if(token == "*"){
+			char op;
+			op = token
 			System.out.print(token);
 			nextToken();
 			F();
 			Tl();
+			return op;
 		}
+		return '\0';
 	}
 
-	public void F() {
+	public int F() {
+		int valor = -1;
 		if(token >= '0' && token <= '9'){
-			System.out.print(token);
+			valor = token - '0';
+			System.out.println(token);
 			nextToken();
 		}else if(token == '('){
 			nextToken();
@@ -66,17 +94,7 @@ public class Compiler {
 		else{
 			error();
 		}
-	}
-
-	private char oper(){
-		if(token == '+' || token == '-'){
-			char op token;
-			nextToken();
-			return op;
-		}else{
-			error();
-		}
-		return '\0';
+		return valor;
 	}
 
 	private void nextToken(){
