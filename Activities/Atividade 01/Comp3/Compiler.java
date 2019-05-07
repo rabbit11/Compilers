@@ -30,6 +30,7 @@ public class Compiler {
 			System.out.println("POP R0");
 			System.out.println("ADD R0, R1");
 		}
+	System.out.println("PUSH R0");
 	}
 
 	public char El(){
@@ -63,9 +64,9 @@ public class Compiler {
 	}
 
 	public char Tl() {
-		if(token == "*"){
+		if(token == '*'){
 			char op;
-			op = token
+			op = token;
 			System.out.print(token);
 			nextToken();
 			F();
